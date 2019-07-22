@@ -1,3 +1,3 @@
 public enum Coffee {
-    LATTE, AMERICANO, ESPRESSO
+    LATTE, ESPRESSO, AMERICANO
 }

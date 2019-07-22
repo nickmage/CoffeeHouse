@@ -1,3 +1,5 @@
+import client.Client;
+
 public interface Payment {
-    void pay();
+    void pay(Client client);
 }

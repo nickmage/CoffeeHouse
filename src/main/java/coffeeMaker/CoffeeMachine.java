@@ -1,7 +1,12 @@
 package coffeeMaker;
 
 public class CoffeeMachine extends Coffeemaker {
-    void makeCoffee() {
 
+    public CoffeeMachine(String name) {
+        this.name = name;
+    }
+
+    void makeCoffee() {
+        System.out.println("The machine is making coffee for " + name + "!");
     }
 }
