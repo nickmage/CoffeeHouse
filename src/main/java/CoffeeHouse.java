@@ -15,7 +15,7 @@ class CoffeeHouse {
     private Random random = new Random();
     private Telemetry telemetry = new Telemetry();
 
-    void pedal() {
+    void engine() {
         while (true) {
             Client client = new Client();
             System.out.println();
