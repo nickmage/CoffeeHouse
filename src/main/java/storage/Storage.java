@@ -14,10 +14,10 @@ public class Storage {
     }
 
     private Storage() {
-        cup = 50;
-        water = 70;
-        coffee = 70;
-        milk = 50;
+        cup = 500;
+        water = 700;
+        coffee = 700;
+        milk = 500;
     }
 
     public boolean isCup(Integer cup) {

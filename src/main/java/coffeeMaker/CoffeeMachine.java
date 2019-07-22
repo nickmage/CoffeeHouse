@@ -6,7 +6,7 @@ public class CoffeeMachine extends Coffeemaker {
         this.name = name;
     }
 
-    void makeCoffee() {
+    public void makeCoffee() {
         System.out.println("The machine is making coffee for " + name + "!");
     }
 }

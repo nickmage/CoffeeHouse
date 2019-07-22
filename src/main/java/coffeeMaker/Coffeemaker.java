@@ -1,8 +1,8 @@
 package coffeeMaker;
 
-abstract class Coffeemaker {
+public abstract class Coffeemaker {
 
     String name;
 
-    abstract void makeCoffee();
+    public abstract void makeCoffee();
 }

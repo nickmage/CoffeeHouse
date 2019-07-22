@@ -10,7 +10,7 @@ public class Client {
     private int amountOfCash;
     private int amountOfMoneyOnTheCard;
 
-    Client() {
+    public Client() {
         name = setName();
         hasCard = setHasCard();
         amountOfCash = setAmountOfCash();
@@ -30,8 +30,16 @@ public class Client {
         return random.nextInt(21);
     }
 
+    public void setAmountOfCash(int cash) {
+        amountOfCash -= cash;
+    }
+
     private int setAmountOfMoneyOnTheCard() {
         return (hasCard) ? random.nextInt(31): 0;
+    }
+
+    public void setAmountOfMoneyOnTheCard(int card) {
+        amountOfMoneyOnTheCard -= card;
     }
 
     public String getName() {
