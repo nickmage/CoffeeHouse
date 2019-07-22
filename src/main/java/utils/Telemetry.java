@@ -34,13 +34,11 @@ public class Telemetry {
 
     @Override
     public String toString() {
-        return "utils.Telemetry{" +
-                "Total cup spent = " + cupSpent +
+        return  "Total cup spent = " + cupSpent +
                 ", total water spent = " + waterSpent +
                 ", total coffee spent = " + coffeeSpent +
                 ", total milk spent = " + milkSpent +
                 ", total money earned = " + moneyEarned +
-                ", quantity of customers = " + customers +
-                '}';
+                ", quantity of customers = " + customers;
     }
 }

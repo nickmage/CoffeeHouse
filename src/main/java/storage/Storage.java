@@ -16,7 +16,7 @@ public class Storage {
     private Storage() {
         cup = 500;
         water = 700;
-        coffee = 700;
+        coffee = 800;
         milk = 500;
     }
 

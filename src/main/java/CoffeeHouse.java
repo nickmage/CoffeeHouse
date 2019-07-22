@@ -10,15 +10,10 @@ import utils.Telemetry;
 
 import java.util.Random;
 
-public class CoffeeHouse {
+class CoffeeHouse {
     private Storage storage = Storage.getInstance();
     private Random random = new Random();
     private Telemetry telemetry = new Telemetry();
-
-    public static void main(String[] args) {
-        CoffeeHouse house = new CoffeeHouse();
-        house.pedal();
-    }
 
     void pedal() {
         while (true) {
@@ -46,7 +41,7 @@ public class CoffeeHouse {
         switch (coffee) {
             case LATTE://2c 2m 1s
                 System.out.println("Latte was chosen");
-                return storage.isCoffee(2) && storage.isMilk(2) && storage.isCup(1);
+                return storage.isCoffee(1) && storage.isMilk(2) && storage.isCup(1);
             case ESPRESSO://2c 1s
                 System.out.println("Espresso was chosen");
                 return storage.isCoffee(2) && storage.isCup(1);
@@ -98,7 +93,7 @@ public class CoffeeHouse {
         statistics(coffee);
         switch (coffee) {
             case LATTE://2c 2m 1s
-                storage.useCoffee(2);
+                storage.useCoffee(1);
                 storage.useMilk(2);
                 storage.useCup(1);
                 break;
@@ -117,7 +112,7 @@ public class CoffeeHouse {
     private void statistics(Coffee coffee) {
         switch (coffee) {
             case LATTE://2c 2m 1s
-                telemetry.setCoffeeSpent(2);
+                telemetry.setCoffeeSpent(1);
                 telemetry.setMilkSpent(2);
                 telemetry.setCupSpent(1);
                 break;

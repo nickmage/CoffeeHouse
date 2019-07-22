@@ -4,9 +4,7 @@ import java.util.Random;
 
 public enum Coffee {
 
-
     LATTE(9), ESPRESSO(8), AMERICANO(7);
-
 
     private int price;
 
