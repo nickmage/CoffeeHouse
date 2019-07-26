@@ -30,23 +30,15 @@ public class Client {
         return random.nextInt(21);
     }
 
-    public void setAmountOfCash(int cash) {
-        amountOfCash -= cash;
-    }
-
     private int setAmountOfMoneyOnTheCard() {
         return (hasCard) ? random.nextInt(31): 0;
-    }
-
-    public void setAmountOfMoneyOnTheCard(int card) {
-        amountOfMoneyOnTheCard -= card;
     }
 
     public String getName() {
         return name;
     }
 
-    public boolean isHasCard() {
+    public boolean hasCard() {
         return hasCard;
     }
 

@@ -25,9 +25,8 @@ class CoffeeHouse {
                 System.out.println(telemetry.toString());
                 break;
             } else {
-                System.out.println(client.getName() + " " + (client.isHasCard() ? "card" : "cash") + " "
+                System.out.println(client.getName() + " " + (client.hasCard() ? "card" : "cash") + " "
                         + client.getAmountOfCash() + " " + client.getAmountOfMoneyOnTheCard());
-                //payment(clients[i], (client) -> {});
                 if (!payment(client, coffee)) {
                     System.out.println("The customer doesn't have enough money");
                 } else {
@@ -54,20 +53,15 @@ class CoffeeHouse {
 
     private boolean payment(Client client, Coffee coffee) {
         int price = coffee.getPrice();
-        //System.out.println(price);
         if (client.getAmountOfMoneyOnTheCard() - price < 0 || bankError()) {
             if (client.getAmountOfCash() - price < 0) {
                 return false;
             } else {
-                client.setAmountOfCash(price);
-                new CashPayment().pay();
-                //System.out.println(client.getAmountOfCash());
+                new CashPayment().pay(client, price);
                 return true;
             }
         } else {
-            client.setAmountOfMoneyOnTheCard(price);
-            //System.out.println(client.getAmountOfMoneyOnTheCard());
-            new CardPayment().pay();
+            new CardPayment().pay(client, price);
             return true;
         }
     }
@@ -129,5 +123,4 @@ class CoffeeHouse {
         telemetry.setMoneyEarned(coffee.getPrice());
         telemetry.setCustomers();
     }
-
 }
