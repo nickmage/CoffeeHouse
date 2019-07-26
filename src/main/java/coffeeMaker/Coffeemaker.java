@@ -2,7 +2,5 @@ package coffeeMaker;
 
 public abstract class Coffeemaker {
 
-    String name;
-
-    public abstract void makeCoffee();
+    public abstract void makeCoffee(String name);
 }

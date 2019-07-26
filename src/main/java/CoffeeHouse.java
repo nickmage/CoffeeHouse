@@ -4,10 +4,7 @@ import coffeeMaker.CoffeeMachine;
 import coffeeMaker.Coffeemaker;
 import payment.CardPayment;
 import payment.CashPayment;
-import storage.Storage;
-import utils.Coffee;
-import utils.RecipeBook;
-import utils.Telemetry;
+import utils.*;
 
 import java.util.Random;
 
@@ -15,6 +12,7 @@ class CoffeeHouse {
     private Random random = new Random();
     private Telemetry telemetry = new Telemetry();
     private RecipeBook recipeBook = new RecipeBook();
+    private boolean coffeeMachineInOrder = true;
 
     void engine() {
         while (true) {
@@ -54,48 +52,69 @@ class CoffeeHouse {
 
     private boolean payment(Client client, Coffee coffee) {
         int price = coffee.getPrice();
-        if (client.getAmountOfMoneyOnTheCard() - price < 0 || bankError()) {
+        try {
+            bankErrorCheck();
+            if (client.getAmountOfMoneyOnTheCard() - price < 0) {
+                if (client.getAmountOfCash() - price < 0) {
+                    return false;
+                } else {
+                    new CashPayment().pay(client, price);
+                    return true;
+                }
+            } else {
+                new CardPayment().pay(client, price);
+                return true;
+            }
+        } catch (BankPaymentSystemError e) {
+            System.err.println(e.getMessage());
             if (client.getAmountOfCash() - price < 0) {
                 return false;
             } else {
                 new CashPayment().pay(client, price);
                 return true;
             }
-        } else {
-            new CardPayment().pay(client, price);
-            return true;
         }
     }
 
-    private boolean bankError() {
-        if (random.nextInt(50) < 1) {
-            System.out.println("Bank error, please pay by cash");
-            return true;
-        } else {
-            return false;
-        }
+    private void bankErrorCheck() throws BankPaymentSystemError {
+        if (random.nextInt(50) < 1)
+            throw new BankPaymentSystemError("Bank error, please pay by cash");
     }
 
     private void makeCoffee(Coffee coffee, Client client) {
         Coffeemaker coffeemaker;
-        if (random.nextInt(50) < 1) {
-            System.out.println("utils.Coffee machine is broken");
-            coffeemaker = new Barista(client.getName());
+        if (coffeeMachineInOrder) {
+            try {
+                coffeeMachineCheck();
+                coffeemaker = new CoffeeMachine();
+                coffeemaker.makeCoffee(client.getName());
+            } catch (CofeeMachineMalfunctionExceprion e) {
+                System.err.println(e.getMessage());
+                coffeeMachineInOrder = false;
+                coffeemaker = new Barista();
+                coffeemaker.makeCoffee(client.getName());
+            }
         } else {
-            coffeemaker = new CoffeeMachine(client.getName());
+            coffeemaker = new Barista();
+            coffeemaker.makeCoffee(client.getName());
         }
-        coffeemaker.makeCoffee();
         statistics(coffee);
         switch (coffee) {
-            case LATTE://2c 2m 1s
+            case LATTE:
                 recipeBook.useIngredientsForLatte();
                 break;
-            case ESPRESSO://2c 1s
+            case ESPRESSO:
                 recipeBook.useIngredientsForEspresso();
                 break;
             case AMERICANO:
                 recipeBook.useIngredientsForAmericano();
                 break;
+        }
+    }
+
+    private void coffeeMachineCheck() throws CofeeMachineMalfunctionExceprion {
+        if (random.nextInt(2) < 1) {
+            throw new CofeeMachineMalfunctionExceprion("Coffee machine is broken");
         }
     }
 
