@@ -6,14 +6,15 @@ import payment.CardPayment;
 import payment.CashPayment;
 import storage.Storage;
 import utils.Coffee;
+import utils.RecipeBook;
 import utils.Telemetry;
 
 import java.util.Random;
 
 class CoffeeHouse {
-    private Storage storage = Storage.getInstance();
     private Random random = new Random();
     private Telemetry telemetry = new Telemetry();
+    private RecipeBook recipeBook = new RecipeBook();
 
     void engine() {
         while (true) {
@@ -38,15 +39,15 @@ class CoffeeHouse {
 
     private boolean hasIngredients(Coffee coffee) {
         switch (coffee) {
-            case LATTE://2c 2m 1s
+            case LATTE:
                 System.out.println("Latte was chosen");
-                return storage.isCoffee(1) && storage.isMilk(2) && storage.isCup(1);
-            case ESPRESSO://2c 1s
+                return recipeBook.hasIngredientsForLatte();
+            case ESPRESSO:
                 System.out.println("Espresso was chosen");
-                return storage.isCoffee(2) && storage.isCup(1);
-            case AMERICANO://2w 2c 1s
+                return recipeBook.hasIngredientsForEspresso();
+            case AMERICANO:
                 System.out.println("Americano was chosen");
-                return storage.isCoffee(2) && storage.isWater(2) && storage.isCup(1);
+                return recipeBook.hasIngredientsForAmericano();
         }
         return false;
     }
@@ -87,18 +88,13 @@ class CoffeeHouse {
         statistics(coffee);
         switch (coffee) {
             case LATTE://2c 2m 1s
-                storage.useCoffee(1);
-                storage.useMilk(2);
-                storage.useCup(1);
+                recipeBook.useIngredientsForLatte();
                 break;
             case ESPRESSO://2c 1s
-                storage.useCoffee(2);
-                storage.useCup(1);
+                recipeBook.useIngredientsForEspresso();
                 break;
-            case AMERICANO://2w 2c 1s
-                storage.useCoffee(2);
-                storage.useWater(2);
-                storage.useCup(1);
+            case AMERICANO:
+                recipeBook.useIngredientsForAmericano();
                 break;
         }
     }

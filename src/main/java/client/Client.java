@@ -17,7 +17,6 @@ public class Client {
         amountOfMoneyOnTheCard = setAmountOfMoneyOnTheCard();
     }
 
-
     private String setName() {
         return new Names().getName();
     }
